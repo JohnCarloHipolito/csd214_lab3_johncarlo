@@ -50,14 +50,7 @@ public class LoginController {
             User loggedInUser = new User();
             loggedInUser.setName(resultSet.getString("name"));
             loggedInUser.setEmail(resultSet.getString("email"));
-
-            FXMLLoader fxmlLoader = new FXMLLoader(HRMgmtApplication.class.getResource("view/dashboard-view.fxml"));
-            Parent dashboard = fxmlLoader.load();
-            DashboardController dashboardController = fxmlLoader.getController();
-            dashboardController.setLoggedInUser(loggedInUser);
-
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(dashboard));
+            SceneRouter.routeToDashboard(event, loggedInUser);
         } else {
             errorMessageLbl.setTextFill(Color.RED);
             errorMessageLbl.setText("Login failed.");

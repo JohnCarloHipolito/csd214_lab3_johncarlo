@@ -1,41 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" prefHeight="400.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
+<?import javafx.geometry.Insets?>
+<VBox alignment="CENTER" prefHeight="480.0" prefWidth="520.0" xmlns="http://javafx.com/javafx/17.0.2-ea"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.triosstudent.csd214_lab3_johncarlo.controller.EmployeeController">
 
     <padding>
-        <Insets bottom="40.0" left="20.0" right="20.0" top="40.0"/>
+        <Insets top="20.0" bottom="20.0" left="20.0" right="20.0" />
     </padding>
 
-    <Label style="-fx-font-size: 16; -fx-font-weight: bold" text="Employee Records"/>
-    <Pane minHeight="20.0"/>
+    <HBox>
+        <Label text="Employee Records" style="-fx-font-weight: bold; -fx-font-size: 16"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Hyperlink onMouseClicked="#handleDashboardClick" text="Dashboard"/>
+    </HBox>
+    <HBox alignment="CENTER_LEFT">
+        <Label fx:id="userNameLbl" style="-fx-font-weight: bold"/>
+    </HBox>
+    <Pane minHeight="20.0" />
 
     <TableView fx:id="employeeTbl">
         <columns>
-            <TableColumn fx:id="idColumn" prefWidth="60" text="ID"/>
-            <TableColumn fx:id="nameColumn" prefWidth="160" text="Name"/>
-            <TableColumn fx:id="emailColumn" prefWidth="160" text="Email"/>
-            <TableColumn fx:id="phoneColumn" prefWidth="100" text="Phone"/>
+            <TableColumn fx:id="idCol" prefWidth="60" text="ID"/>
+            <TableColumn fx:id="nameCol" prefWidth="160" text="Name"/>
+            <TableColumn fx:id="emailCol" prefWidth="160" text="Email"/>
+            <TableColumn fx:id="phoneCol" prefWidth="100" text="Phone"/>
         </columns>
     </TableView>
     <Pane minHeight="20.0"/>
     <HBox alignment="CENTER" spacing="10">
         <TextField fx:id="idTF" prefWidth="50"/>
-        <TextField fx:id="nameTF" prefHeight="150"/>
+        <TextField fx:id="nameTF" prefWidth="150"/>
         <TextField fx:id="emailTF" prefWidth="150"/>
         <TextField fx:id="phoneTF" prefWidth="100"/>
     </HBox>
     <Pane minHeight="20.0"/>
-    <!-- Add more fields as needed -->
+
     <HBox alignment="CENTER" spacing="10">
-        <Button fx:id="readButton" minWidth="100" onAction="#handleCrudOperation" text="Read"/>
-        <Button fx:id="createButton" minWidth="100" onAction="#handleCrudOperation" text="Create"/>
-        <Button fx:id="updateButton" minWidth="100" onAction="#handleCrudOperation" text="Update"/>
-        <Button fx:id="deleteButton" minWidth="100" onAction="#handleCrudOperation" text="Delete"/>
+        <Button minWidth="100" onAction="#handleReadAction" text="Read"/>
+        <Button minWidth="100" onAction="#handleCreateAction" text="Create"/>
+        <Button minWidth="100" onAction="#handleUpdateAction" text="Update"/>
+        <Button minWidth="100" onAction="#handleDeleteAction" text="Delete"/>
     </HBox>
 
 </VBox>

@@ -1,13 +1,7 @@
 package com.triosstudent.csd214_lab3_johncarlo.controller;
 
-import com.triosstudent.csd214_lab3_johncarlo.HRMgmtApplication;
 import com.triosstudent.csd214_lab3_johncarlo.model.User;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -20,36 +14,18 @@ public class DashboardController {
     }
 
     public void handleSalaryButtonAction(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HRMgmtApplication.class.getResource("view/salary-view.fxml"));
-        Parent salary = fxmlLoader.load();
-        SalaryController salaryController = fxmlLoader.getController();
-        salaryController.setLoggedInUser(loggedInUser);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(salary));
-
+       SceneRouter.routeToSalary(event, loggedInUser);
     }
 
     public void handleEmployeeButtonAction(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HRMgmtApplication.class.getResource("view/employee-view.fxml"));
-        Parent employee = fxmlLoader.load();
-        EmployeeController employeeController = fxmlLoader.getController();
-        employeeController.setLoggedInUser(loggedInUser);
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(employee));
-
-
+        SceneRouter.routeToEmployee(event, loggedInUser);
     }
 
     public void handleLogoutButtonAction(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(HRMgmtApplication.class.getResource("view/login-view.fxml"));
-        Parent login = fxmlLoader.load();
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(login));
-
+        SceneRouter.routeToLogin(event);
     }
 
     public void handleExitButtonAction(ActionEvent event) {
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.close();
+        SceneRouter.routeToExit(event);
     }
 }
