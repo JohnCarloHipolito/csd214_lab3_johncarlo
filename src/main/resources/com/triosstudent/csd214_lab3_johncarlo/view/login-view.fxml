@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<VBox alignment="CENTER" prefHeight="400" prefWidth="520" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.triosstudent.csd214_lab3_johncarlo.controller.LoginController">
+
+    <Label text="HRM Login" style="-fx-font-size: 16; -fx-font-weight: bold"/>
+    <Pane minHeight="20.0"/>
+
+    <Label text="Email"/>
+    <TextField fx:id="emailTF" maxWidth="250"/>
+    <Pane minHeight="20.0"/>
+
+    <Label text="Password"/>
+    <PasswordField fx:id="passwordTF" maxWidth="250"/>
+    <Pane minHeight="20.0"/>
+
+    <Label fx:id="errorMessageLbl" textFill="RED"/>
+    <Pane minHeight="10.0"/>
+
+    <Button text="Login" onAction="#handleLoginAction"/>
+    <Pane minHeight="20.0"/>
+</VBox>
