@@ -1,15 +1,11 @@
 package com.triosstudent.csd214_lab3_johncarlo.controller;
 
-import com.triosstudent.csd214_lab3_johncarlo.HRMgmtApplication;
 import com.triosstudent.csd214_lab3_johncarlo.dao.UserDao;
 import com.triosstudent.csd214_lab3_johncarlo.infrastructure.DBConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.*;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.*;
@@ -40,16 +36,8 @@ public class LoginController {
         ResultSet resultSet = preparedStatement.executeQuery();
 
         if (resultSet.next()) {
-            // load dashboard
-            FXMLLoader fxmlLoader = new FXMLLoader(HRMgmtApplication.class.getResource("view/dashboard-view.fxml"));
-            Parent dashboard = fxmlLoader.load();
-            DashboardController dashboardController = fxmlLoader.getController();
-            // pass data to dashboard
             UserDao userDao = UserDao.mapResultSet(resultSet);
-            dashboardController.setLoggedInUser(userDao.getName());
-            // change scene
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(dashboard));
+            SceneRouter.routeToDashboard(event, userDao.getName());
         } else {
             // show error message
             errorMessageLbl.setTextFill(Color.RED);

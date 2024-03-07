@@ -81,14 +81,18 @@ public class EmployeeController {
 
     @FXML
     protected void onDashboardHyperLinkClick(MouseEvent mouseEvent) throws IOException {
-        // load dashboard view
-        FXMLLoader fxmlLoader = new FXMLLoader(HRMgmtApplication.class.getResource("view/dashboard-view.fxml"));
-        Parent dashboard = fxmlLoader.load();
-        DashboardController dashboardController = fxmlLoader.getController();
-        // pass the logged-in user to the dashboard controller
-        dashboardController.setLoggedInUser(loggedInUser);
-        Stage stage = (Stage) ((Node) mouseEvent.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(dashboard));
+        SceneRouter.routeToDashboard(mouseEvent, loggedInUser);
+    }
+
+
+    @FXML
+    protected void onLogoutHyperLinkClick(MouseEvent mouseEvent) throws IOException {
+        SceneRouter.routeToLogin(mouseEvent);
+    }
+
+    @FXML
+    protected void onExitHyperLinkClick(MouseEvent mouseEvent) {
+        SceneRouter.routToExit(mouseEvent);
     }
 
     @FXML
@@ -235,4 +239,5 @@ public class EmployeeController {
         emailTF.clear();
         phoneTF.clear();
     }
+
 }
