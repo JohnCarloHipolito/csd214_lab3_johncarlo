@@ -1,18 +1,20 @@
 package com.triosstudent.csd214_lab3_johncarlo.model;
 
+import java.time.LocalDate;
+
 public class Salary {
 
     private Long id;
-    private Long userId;
-    private String payPeriod;
+    private String name;
+    private LocalDate payPeriod;
     private Double amount;
 
     public Salary() {
     }
 
-    public Salary(Long id, Long userId, String payPeriod, Double amount) {
+    public Salary(Long id, String name, LocalDate payPeriod, Double amount) {
         this.id = id;
-        this.userId = userId;
+        this.name = name;
         this.payPeriod = payPeriod;
         this.amount = amount;
     }
@@ -25,19 +27,19 @@ public class Salary {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public String getName() {
+        return name;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getPayPeriod() {
+    public LocalDate getPayPeriod() {
         return payPeriod;
     }
 
-    public void setPayPeriod(String payPeriod) {
+    public void setPayPeriod(LocalDate payPeriod) {
         this.payPeriod = payPeriod;
     }
 

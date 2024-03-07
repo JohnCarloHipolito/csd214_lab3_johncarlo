@@ -1,25 +1,18 @@
 package com.triosstudent.csd214_lab3_johncarlo.controller;
 
 import com.triosstudent.csd214_lab3_johncarlo.HRMgmtApplication;
+import com.triosstudent.csd214_lab3_johncarlo.dao.UserDao;
 import com.triosstudent.csd214_lab3_johncarlo.infrastructure.DBConnection;
-import com.triosstudent.csd214_lab3_johncarlo.model.User;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.*;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class LoginController {
 
@@ -31,14 +24,14 @@ public class LoginController {
     private PasswordField passwordTF;
 
     @FXML
-    protected void handleLoginAction(ActionEvent event) throws SQLException, IOException {
+    protected void onLoginAction(ActionEvent event) throws SQLException, IOException {
         // validate email and password
         if (emailTF.getText().isEmpty() || passwordTF.getText().isEmpty()) {
             errorMessageLbl.setTextFill(Color.RED);
             errorMessageLbl.setText("Please provide email and password.");
             return;
         }
-
+        // search for user in database with the provided email and password
         Connection connection = DBConnection.getInstance().getConnection();
         String readQuery = "SELECT * FROM tbl_user WHERE email=? AND password=? AND role='ADMIN'";
         PreparedStatement preparedStatement = connection.prepareStatement(readQuery);
@@ -47,13 +40,20 @@ public class LoginController {
         ResultSet resultSet = preparedStatement.executeQuery();
 
         if (resultSet.next()) {
-            User loggedInUser = new User();
-            loggedInUser.setName(resultSet.getString("name"));
-            loggedInUser.setEmail(resultSet.getString("email"));
-            SceneRouter.routeToDashboard(event, loggedInUser);
+            // load dashboard
+            FXMLLoader fxmlLoader = new FXMLLoader(HRMgmtApplication.class.getResource("view/dashboard-view.fxml"));
+            Parent dashboard = fxmlLoader.load();
+            DashboardController dashboardController = fxmlLoader.getController();
+            // pass data to dashboard
+            UserDao userDao = UserDao.mapResultSet(resultSet);
+            dashboardController.setLoggedInUser(userDao.getName());
+            // change scene
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(dashboard));
         } else {
+            // show error message
             errorMessageLbl.setTextFill(Color.RED);
-            errorMessageLbl.setText("Login failed.");
+            errorMessageLbl.setText("Login failed! Please check your email and password.");
         }
 
     }

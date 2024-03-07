@@ -1,8 +1,6 @@
 package com.triosstudent.csd214_lab3_johncarlo.infrastructure;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DBConnection {
 
@@ -11,9 +9,7 @@ public class DBConnection {
 
     private DBConnection() throws SQLException {
         connection = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/csd214_lab3_johncarlo",
-                "root",
-                "pwd123!");
+                "jdbc:mysql://localhost:3306/csd214_lab3_johncarlo", "root", "pwd123!");
     }
 
     public static DBConnection getInstance() throws SQLException {

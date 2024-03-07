@@ -10,4 +10,6 @@ module com.triosstudent.csd214_lab3_johncarlo {
     opens com.triosstudent.csd214_lab3_johncarlo.controller to javafx.fxml;
     exports com.triosstudent.csd214_lab3_johncarlo.model;
     opens com.triosstudent.csd214_lab3_johncarlo.model to javafx.fxml;
+    exports com.triosstudent.csd214_lab3_johncarlo.dao;
+    opens com.triosstudent.csd214_lab3_johncarlo.dao to javafx.fxml;
 }
